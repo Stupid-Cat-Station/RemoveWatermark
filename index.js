@@ -25,6 +25,7 @@
 // @compatible    opera safari edge
 // @compatible    safari
 // @compatible    edge
+
 // ==/UserScript==
 
 (function() {
