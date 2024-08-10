@@ -221,7 +221,7 @@ function gaodingRemarkTips(){
 
     var stepTwo = document.createElement("div");
         stepTwo.setAttribute('class', 'step-two');
-        stepTwo.textContent = "2. 添加屏蔽请求，输入屏蔽地址：blob:https://www.gaoding.com/*_*_*_*_*";
+        stepTwo.textContent = "2. 添加屏蔽请求，输入屏蔽地址：blob:https://www.gaoding.com/*-*-*-*-*";
     modalTipInfos.appendChild(stepTwo);
 
     var stepTwoImg = document.createElement("img");
