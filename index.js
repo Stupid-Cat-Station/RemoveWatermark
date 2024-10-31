@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         搞定水印 RemoveWatermark（搞定设计、创客贴、比格设计、爱设计、易企秀、标小智、标智客等）
 // @namespace    https://www.benmao.vip
-// @version      1.0.2
+// @version      1.1.0
 // @description  🔥搞定水印 RemoveWatermark插件是由笨猫小站开发的一款去水印工具，支持去除在线图文设计平台水印，包括有搞定设计、创客贴、比格设计、爱设计、易企秀、标小智、标智客图片水印。
 // @author       笨猫
 // @icon         https://achengovo.com/greasyfork/logo.png
@@ -30,8 +30,8 @@
 
 (function() {
     'use strict';
-    const alifont = 'https://at.alicdn.com/t/c/font_2324127_7j0vsmflvph.css';
-    const cssurl  = 'https://www.benmao.vip/public/monkey/css/monkey_remark.css';
+    const alifont = 'https://at.alicdn.com/t/c/font_2324127_m4c36wjifv.css';
+    const cssurl  = 'https://api.benmao.vip/public/monkey/css/remark.css';
     GM_addStyle(`@import url('${alifont}');`);
     GM_addStyle(`@import url('${cssurl}');`);
     const thisReward   = getCookie('catRewardIdent');
@@ -40,8 +40,83 @@
     }
     createRemarkBtn();
 })();
+//创建去水印按钮
+function createRemarkBtn(){
+    var killMarkObj = document.createElement("div");
+        killMarkObj.setAttribute('class', 'kill-mark-slide');
+    document.body.appendChild(killMarkObj);
+    //去水印
+    var killBtnObj = document.createElement("span");
+        killBtnObj.setAttribute('class', 'kill-mark-btn');
+        killBtnObj.innerHTML = "<i class='catfont benmao-shuiyin'></i> 去水印";
+        killBtnObj.addEventListener("click", () => {
+            const thisKillmark = getCookie('catKillMark');
+            if(thisKillmark != ""){
+                killMarks();
+            }else{
+                createVerify();
+            }
+        });
+    killMarkObj.appendChild(killBtnObj);
+
+    //打个赏
+    var rewardBtnObj = document.createElement("span");
+        rewardBtnObj.setAttribute('class', 'tome-reward-btn');
+        rewardBtnObj.innerHTML = "<i class='catfont benmao-dashang'></i> 打个赏";
+        rewardBtnObj.addEventListener("click", () => {
+            createReward();
+        });
+    killMarkObj.appendChild(rewardBtnObj);
+
+    //看教程
+    var tutorialBtnObj = document.createElement("a");
+        tutorialBtnObj.setAttribute('class', 'tutorial-btn');
+        tutorialBtnObj.setAttribute('target', '_blank');
+        tutorialBtnObj.setAttribute('href', 'https://www.benmao.vip/jufeng/info.html?id=212');
+        tutorialBtnObj.innerHTML = "<i class='catfont benmao-jiaocheng'></i> 看教程";
+    killMarkObj.appendChild(tutorialBtnObj);
+
+    
+}
+//创建打赏
+function createReward(){
+    var rewardscreen = document.createElement("div");
+        rewardscreen.setAttribute('class', 'reward-screen');
+    document.body.appendChild(rewardscreen);
+
+    var rewardmodal = document.createElement("div");
+        rewardmodal.setAttribute('class', 'reward-modal');
+    rewardscreen.appendChild(rewardmodal);
+
+    var titleObj = document.createElement("h2");
+        titleObj.textContent = "给我打个赏吧";
+        titleObj.setAttribute('class', 'modal-title');
+    rewardmodal.appendChild(titleObj);
+
+    var rewardCodeObj = document.createElement("div");
+        rewardCodeObj.setAttribute('class', 'reward-code');
+    rewardmodal.appendChild(rewardCodeObj);
+
+    var codeImageObj = document.createElement("img");
+        codeImageObj.setAttribute('class', 'code-img');
+        codeImageObj.src = "https://api.benmao.vip/public/monkey/images/enjoy_pay.png";
+    rewardCodeObj.appendChild(codeImageObj);
+
+    var rewardBtnsObj = document.createElement("div");
+        rewardBtnsObj.setAttribute('class', 'reward-btns');
+    rewardmodal.appendChild(rewardBtnsObj);
+
+    var redBtnObj = document.createElement("span");
+        redBtnObj.setAttribute('class', 'btn');
+        redBtnObj.textContent = "已打赏";
+        redBtnObj.addEventListener("click", () => {
+            setCookie('catRewardIdent','reward',2)
+            hideVerifyModal('reward-screen')
+        });
+    rewardBtnsObj.appendChild(redBtnObj);
+}
 //公众号验证(必须验证)
-function gzhverify(){
+function createVerify(){
     var gzhscreen = document.createElement("div");
         gzhscreen.setAttribute('class', 'verify-screen');
     document.body.appendChild(gzhscreen);
@@ -65,7 +140,7 @@ function gzhverify(){
 
     var imageObj = document.createElement("img");
         imageObj.setAttribute('class', 'codeimg');
-        imageObj.src = "https://www.benmao.vip/public/uploads/images/gzh_code.png";
+        imageObj.src = "https://api.benmao.vip/public/monkey/images/benmao.png";
     wxcodeObj.appendChild(imageObj);
 
     var inputBoxObj = document.createElement("div");
@@ -94,12 +169,11 @@ function gzhverify(){
                 },3000)
                 return false;
             }
-            const geturl = 'https://www.benmao.vip/api/v1/verify/code_state?authkey='+authkey;
-            $.get(geturl,{},function(result){
+            const geturl = 'https://api.benmao.vip/benmao/others/verify_code/state';
+            $.post(geturl,{authkey:authkey},function(result){
                 if(result.code == 1){
                     var today = new Date().toLocaleDateString();
                     setCookie('catKillMark',today,12)
-                    createRemarkBtn();
                     createReward();
                     hideVerifyModal('verify-screen');
                 }else{
@@ -122,74 +196,11 @@ function gzhverify(){
         closeBtnObj.setAttribute('class', 'close-modal');
         closeBtnObj.textContent = "X";
         closeBtnObj.addEventListener("click", () => {
-            createRemarkBtn()
             hideVerifyModal('verify-screen');
         });
     gzhmodal.appendChild(closeBtnObj);
 }
-//创建打赏
-function createReward(){
-    var rewardscreen = document.createElement("div");
-        rewardscreen.setAttribute('class', 'reward-screen');
-    document.body.appendChild(rewardscreen);
 
-    var rewardmodal = document.createElement("div");
-        rewardmodal.setAttribute('class', 'reward-modal');
-    rewardscreen.appendChild(rewardmodal);
-
-    var titleObj = document.createElement("h2");
-        titleObj.textContent = "给我打个赏吧";
-        titleObj.setAttribute('class', 'modal-title');
-    rewardmodal.appendChild(titleObj);
-
-    var rewardCodeObj = document.createElement("div");
-        rewardCodeObj.setAttribute('class', 'reward-code');
-    rewardmodal.appendChild(rewardCodeObj);
-
-    var codeImageObj = document.createElement("img");
-        codeImageObj.setAttribute('class', 'code-img');
-        codeImageObj.src = "https://www.benmao.vip/public/static/index/common/images/enjoy_pay.png";
-    rewardCodeObj.appendChild(codeImageObj);
-
-    var rewardBtnsObj = document.createElement("div");
-        rewardBtnsObj.setAttribute('class', 'reward-btns');
-    rewardmodal.appendChild(rewardBtnsObj);
-
-    var redBtnObj = document.createElement("span");
-        redBtnObj.setAttribute('class', 'btn');
-        redBtnObj.textContent = "已打赏";
-        redBtnObj.addEventListener("click", () => {
-            setCookie('catRewardIdent','reward',2)
-            hideVerifyModal('reward-screen')
-        });
-    rewardBtnsObj.appendChild(redBtnObj);
-}
-//创建去水印按钮
-function createRemarkBtn(){
-    var killMarkObj = document.createElement("div");
-        killMarkObj.setAttribute('class', 'kill-mark-slide');
-    document.body.appendChild(killMarkObj);
-
-    var killBtnObj = document.createElement("span");
-        killBtnObj.setAttribute('class', 'kill-mark-btn');
-        killBtnObj.innerHTML = "<i class='catfont benmao-shuiyin'></i> 去水印";
-        killBtnObj.addEventListener("click", () => {
-            const thisKillmark = getCookie('catKillMark');
-            if(thisKillmark != ""){
-                killMarks();
-            }else{
-                gzhverify();
-            }
-        });
-    killMarkObj.appendChild(killBtnObj);
-
-    var tutorialBtnObj = document.createElement("a");
-        tutorialBtnObj.setAttribute('class', 'tutorial-btn');
-        tutorialBtnObj.setAttribute('target', '_blank');
-        tutorialBtnObj.setAttribute('href', 'https://www.benmao.vip/jufeng/info.html?id=212');
-        tutorialBtnObj.innerHTML = "<i class='catfont benmao-jiaocheng'></i> 看教程";
-    killMarkObj.appendChild(tutorialBtnObj);
-}
 //去水印提示（搞定设计）
 function gaodingRemarkTips(){
     var markTipScreen = document.createElement("div");
@@ -216,7 +227,7 @@ function gaodingRemarkTips(){
 
     var stepOneImg = document.createElement("img");
         stepOneImg.setAttribute('class', 'step-ong-img');
-        stepOneImg.src = "https://www.benmao.vip/public/monkey/images/gdimgs/step_1.png";
+        stepOneImg.src = "https://api.benmao.vip/public/monkey/images/gdimgs/step_1.png";
     stepOne.appendChild(stepOneImg);
 
     var stepTwo = document.createElement("div");
@@ -226,7 +237,7 @@ function gaodingRemarkTips(){
 
     var stepTwoImg = document.createElement("img");
         stepTwoImg.setAttribute('class', 'step-two-img');
-        stepTwoImg.src = "https://www.benmao.vip/public/monkey/images/gdimgs/step_2.png";
+        stepTwoImg.src = "https://api.benmao.vip/public/monkey/images/gdimgs/step_2.png";
     stepTwo.appendChild(stepTwoImg);
 
     var stepThree = document.createElement("div");
@@ -236,7 +247,7 @@ function gaodingRemarkTips(){
 
     var stepThreeImg = document.createElement("img");
         stepThreeImg.setAttribute('class', 'step-three-img');
-        stepThreeImg.src = "https://www.benmao.vip/public/monkey/images/gdimgs/step_3.png";
+        stepThreeImg.src = "https://api.benmao.vip/public/monkey/images/gdimgs/step_3.png";
     stepThree.appendChild(stepThreeImg);
 
     var killtipBtnsObj = document.createElement("div");
@@ -259,6 +270,7 @@ function gaodingRemarkTips(){
         });
     killtipBtnsObj.appendChild(rekillBtnObj);
 }
+
 //去水印功能
 function killMarks(){
     const doctitle = document.title;
@@ -317,5 +329,5 @@ function getCookie(ckname) {
 }
 //关闭验证
 function hideVerifyModal(elem){
-    $('.'+elem).hide();
+    $('.'+elem).remove();
 }
