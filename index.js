@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         搞定水印 RemoveWatermark（搞定设计、创客贴、比格设计、爱设计、易企秀、标小智、标智客等）
-// @namespace    https://www.benmao.vip
-// @version      1.1.0
+// @namespace    https://www.benmao.site
+// @version      2.0.1
 // @description  🔥搞定水印 RemoveWatermark插件是由笨猫小站开发的一款去水印工具，支持去除在线图文设计平台水印，包括有搞定设计、创客贴、比格设计、爱设计、易企秀、标小智、标智客图片水印。
 // @author       笨猫
 // @icon         https://achengovo.com/greasyfork/logo.png
@@ -26,12 +26,14 @@
 // @compatible    safari
 // @compatible    edge
 
+// @downloadURL https://update.greasyfork.org/scripts/502769/%E6%90%9E%E5%AE%9A%E6%B0%B4%E5%8D%B0%20RemoveWatermark%EF%BC%88%E6%90%9E%E5%AE%9A%E8%AE%BE%E8%AE%A1%E3%80%81%E5%88%9B%E5%AE%A2%E8%B4%B4%E3%80%81%E6%AF%94%E6%A0%BC%E8%AE%BE%E8%AE%A1%E3%80%81%E7%88%B1%E8%AE%BE%E8%AE%A1%E3%80%81%E6%98%93%E4%BC%81%E7%A7%80%E3%80%81%E6%A0%87%E5%B0%8F%E6%99%BA%E3%80%81%E6%A0%87%E6%99%BA%E5%AE%A2%E7%AD%89%EF%BC%89.user.js
+// @updateURL https://update.greasyfork.org/scripts/502769/%E6%90%9E%E5%AE%9A%E6%B0%B4%E5%8D%B0%20RemoveWatermark%EF%BC%88%E6%90%9E%E5%AE%9A%E8%AE%BE%E8%AE%A1%E3%80%81%E5%88%9B%E5%AE%A2%E8%B4%B4%E3%80%81%E6%AF%94%E6%A0%BC%E8%AE%BE%E8%AE%A1%E3%80%81%E7%88%B1%E8%AE%BE%E8%AE%A1%E3%80%81%E6%98%93%E4%BC%81%E7%A7%80%E3%80%81%E6%A0%87%E5%B0%8F%E6%99%BA%E3%80%81%E6%A0%87%E6%99%BA%E5%AE%A2%E7%AD%89%EF%BC%89.meta.js
 // ==/UserScript==
 
 (function() {
     'use strict';
     const alifont = 'https://at.alicdn.com/t/c/font_2324127_m4c36wjifv.css';
-    const cssurl  = 'https://api.benmao.vip/public/monkey/css/remark.css';
+    const cssurl  = 'https://api.1900.wang/public/monkey/css/remark.css';
     GM_addStyle(`@import url('${alifont}');`);
     GM_addStyle(`@import url('${cssurl}');`);
     const thisReward   = getCookie('catRewardIdent');
@@ -72,7 +74,7 @@ function createRemarkBtn(){
     var tutorialBtnObj = document.createElement("a");
         tutorialBtnObj.setAttribute('class', 'tutorial-btn');
         tutorialBtnObj.setAttribute('target', '_blank');
-        tutorialBtnObj.setAttribute('href', 'https://www.benmao.vip/jufeng/info.html?id=212');
+        tutorialBtnObj.setAttribute('href', 'https://www.benmao.site/article.html?id=212');
         tutorialBtnObj.innerHTML = "<i class='catfont benmao-jiaocheng'></i> 看教程";
     killMarkObj.appendChild(tutorialBtnObj);
 
@@ -99,7 +101,7 @@ function createReward(){
 
     var codeImageObj = document.createElement("img");
         codeImageObj.setAttribute('class', 'code-img');
-        codeImageObj.src = "https://api.benmao.vip/public/monkey/images/enjoy_pay.png";
+        codeImageObj.src = "https://api.1900.wang/public/monkey/images/enjoy_pay.png";
     rewardCodeObj.appendChild(codeImageObj);
 
     var rewardBtnsObj = document.createElement("div");
@@ -140,7 +142,7 @@ function createVerify(){
 
     var imageObj = document.createElement("img");
         imageObj.setAttribute('class', 'codeimg');
-        imageObj.src = "https://api.benmao.vip/public/monkey/images/benmao.png";
+        imageObj.src = "https://api.1900.wang/public/monkey/images/benmao.png";
     wxcodeObj.appendChild(imageObj);
 
     var inputBoxObj = document.createElement("div");
@@ -169,7 +171,7 @@ function createVerify(){
                 },3000)
                 return false;
             }
-            const geturl = 'https://api.benmao.vip/benmao/others/verify_code/state';
+            const geturl = 'https://api.1900.wang/benmao/others/verify_code/state';
             $.post(geturl,{authkey:authkey},function(result){
                 if(result.code == 1){
                     var today = new Date().toLocaleDateString();
@@ -227,17 +229,17 @@ function gaodingRemarkTips(){
 
     var stepOneImg = document.createElement("img");
         stepOneImg.setAttribute('class', 'step-ong-img');
-        stepOneImg.src = "https://api.benmao.vip/public/monkey/images/gdimgs/step_1.png";
+        stepOneImg.src = "https://api.1900.wang/public/monkey/images/gdimgs/step_1.png";
     stepOne.appendChild(stepOneImg);
 
     var stepTwo = document.createElement("div");
         stepTwo.setAttribute('class', 'step-two');
-        stepTwo.textContent = "2. 添加屏蔽请求，输入屏蔽地址：blob:https://www.gaoding.com/*-*-*-*-*";
+        stepTwo.textContent = "2. 添加屏蔽请求，输入屏蔽地址：https://www.gaoding.com/api/ccm/editors/risk_materials";
     modalTipInfos.appendChild(stepTwo);
 
     var stepTwoImg = document.createElement("img");
         stepTwoImg.setAttribute('class', 'step-two-img');
-        stepTwoImg.src = "https://api.benmao.vip/public/monkey/images/gdimgs/step_2.png";
+        stepTwoImg.src = "https://api.1900.wang/public/monkey/images/gdimgs/step_2.png";
     stepTwo.appendChild(stepTwoImg);
 
     var stepThree = document.createElement("div");
@@ -247,7 +249,7 @@ function gaodingRemarkTips(){
 
     var stepThreeImg = document.createElement("img");
         stepThreeImg.setAttribute('class', 'step-three-img');
-        stepThreeImg.src = "https://api.benmao.vip/public/monkey/images/gdimgs/step_3.png";
+        stepThreeImg.src = "https://api.1900.wang/public/monkey/images/gdimgs/step_3.png";
     stepThree.appendChild(stepThreeImg);
 
     var killtipBtnsObj = document.createElement("div");
@@ -286,12 +288,10 @@ function killMarks(){
     }else if (/(创客贴)/.test(doctitle)) {
         const newStr = document.getElementsByClassName("canvas-slot-inner")[0].innerHTML;
             window.document.body.innerHTML = newStr;
-        $("div[style*='ckt-watermark']").remove();
+        $("div.water-mark").remove();
         $("body").css("overflow", "visible");
-    }else if (/(比格设计)/.test(doctitle)) {
-        $("div.water").css("position", "static");
-        $("div.tool-bar-container").remove();
-        $(".water-tip").remove();
+    }else if (/(笔格设计)/.test(doctitle)) {
+        $(".water").remove();
     }else if (/(爱设计)/.test(doctitle)) {
         $("#editorDrag > div.undefined.scrolly > div.scrolly-viewport.editor-center > div > div:nth-child(1)").remove();
         $(".editor-watermask").remove();
@@ -305,7 +305,6 @@ function killMarks(){
         $(".watermarklayer").remove();
         $('#watermark').remove()
     }else if (/(标智客)/.test(doctitle)) {
-        console.log(1111)
         $(".watermark").remove();
     }
 }
