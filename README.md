@@ -1,10 +1,10 @@
 ### 🔥工具简单介绍
-搞定水印 RemoveWatermark插件是由笨猫小站开发的一款去水印工具，支持去除在线图文设计平台水印，包括有搞定设计、创客贴、比格设计、爱设计、易企秀、标小智、标智客图片水印
+搞定水印RemoveWatermark插件由笨猫小站开发，是一款功能强大的去水印工具。它能精准去除多个在线图文设计平台的水印，像搞定设计、创客贴、比格设计等常见平台均在支持范围内。无论是商用素材还是个人创作，都能借助该插件轻松摆脱水印困扰，还原纯净画面。操作简单便捷，为设计师、运营人员等有去水印需求的用户节省时间与精力，让创作和使用素材更加高效。 
 
 ### 🔥相关教程
-篡改猴(油猴)安装指南：https://www.benmao.site/article.html?id=213
-油猴脚本插件安装指南：https://www.benmao.site/article.html?id=214
-搞定水印插件使用教程：https://www.benmao.site/article.html?id=212
+篡改猴(油猴)安装指南：https://www.benmao.site/article.html?id=213<br/>
+油猴脚本插件安装指南：https://www.benmao.site/article.html?id=214<br/>
+搞定水印插件使用教程：https://www.benmao.site/article.html?id=212<br/>
 
 ### 🔥关注笨猫
 笨猫资源小站：https://www.benmao.site
